@@ -17,10 +17,10 @@ console.log(rentals)
     rentals.forEach((rental, index) => {
         const row = document.createElement('tr');
         row.innerHTML = `
+            <td>${rental.regNumber}</td>
             <td>${rental.nic}</td>
             <td>${rental.username}</td>
             <td>${rental.number}</td>
-            <td>${rental.regNumber}</td>
             <td>${rental.rentDate}</td>
             <td>${rental.status}</td>
             <td>

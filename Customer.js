@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const availablecarBody = document.getElementById('car-list');
     const myRentalsTableBody = document.getElementById('myRentalsTableBody');
 
-    // Display available motorbikes with search filtering
+    // Display available cars with search filtering
     function displayAvailablecar() {
         const searchBar = document.getElementById('searchBar');
         const searchQuery = searchBar.value.toLowerCase(); // Get and normalize the search query
@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', function () {
         };
         rentals.push(rental); // Add new rental
         localStorage.setItem('rentals', JSON.stringify(rentals)); // Save rentals to local storage
-        displayAvailablecar(); // Refresh available motorbikes display
+        displayAvailablecar(); // Refresh available cars display
      // Refresh user's rentals display
     };
 
@@ -135,7 +135,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Initialize displays on page load
     window.onload = function () {
         displayMyRentals(); 
-        displayAvailablecar(); // Initial display of available motorbikes
+        displayAvailablecar(); // Initial display of available cars
     };
 });
 

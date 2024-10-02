@@ -19,18 +19,18 @@ function returnCar() {
         return;
     }
 
-    let bookings = JSON.parse(localStorage.getItem('bookings')) || [];
+    let rentals = JSON.parse(localStorage.getItem('rentals')) || [];
     let updated = false;
     let isOverdue = false;
 
-    bookings = bookings.map(booking => {
-        if (booking.regNumber === returnRegNumber) {
-            if (booking.returnDate) {
+    rentals = rentals.map(rental => {
+        if (rental.regNumber === returnRegNumber) {
+            if (rental.returnDate) {
                 alert('Car has already been returned.');
-                return booking;
+                return rental;
             }
 
-            const rentDate = new Date(booking.rentDate);
+            const rentDate = new Date(rental.rentDate);
             const expectedReturnDate = new Date(rentDate);
             expectedReturnDate.setMinutes(expectedReturnDate.getMinutes() + 1);             
            
@@ -38,10 +38,10 @@ function returnCar() {
                 isOverdue = true;
             }
             
-            booking.returnDate = returnDateISO;
+            rental.returnDate = returnDateISO;
             updated = true;
         }
-        return booking;
+        return rental;
     });
 
     if (!updated) {
@@ -49,7 +49,7 @@ function returnCar() {
         return;
     }
 
-    localStorage.setItem('bookings', JSON.stringify(bookings));
+    localStorage.setItem('rentals', JSON.stringify(rentals));
 
     if (isOverdue) {
         alert('Car is overdue.');
