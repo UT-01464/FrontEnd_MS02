@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CustomerPage</title>
+    <link rel="stylesheet" href="Home.css">
+
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
+
+    <!-- icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <!--  *****   Link To Custom CSS Style Sheet   *****  -->
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+    <!--  *****   Link To Font Awsome Icons   *****  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+
+</head>
+<body>
+
+
+    <header class="header">
+        <a href="#home" class="logo">
+            CAR<span>RENT</span>
+        </a>
+
+        <i class="bx bx-menu" id="menu-icon"></i>
+        <nav class="navbar">
+            <a href="#Booking" onclick="carrentoption()">Booking</a>
+            <a href="#Feedback">Feedback</a>
+            <a href="#profile" id="userInfo" class="editpro">Profile</a>
+            <a href="#renatlModal" id="rentalhistory">Rentalhistory</a>
+            <a href="#logout" id="logoutBtn">Log out</a>
+            <a href="#Contactus">Contact US</a>
+
+            <input type="text" name="Search" id="searchBar" class="searchBar" placeholder="Search motorbikes...">
+
+        </nav>
+
+    </header>
+
+
+   
+    <!-- ----------------------Car------------------------------------------------------ -->
+
+    <section class="cars" id="Cars">
+        <h2 class="carh2">Our Featured Cars</h2>
+        <div class="car-list" id="car-list">
+            <!-- Car cards will be added here dynamically -->
+        </div>
+    </section>
+
+
+    <script src="Customer.js"></script>
+</body>
+</html>
