@@ -41,10 +41,9 @@
         <nav class="navbar">
             <a href="#Home">Home</a>
             <a href="#About">About</a>
-            <a href="#Booking">Booking</a>
             <a href="#Services">Services</a>
             <a href="#Cars">Cars</a>
-            <a href="#Contactus">Contact US</a>
+            <a href="#contactUs">Contact US</a>
         </nav>
 
         <button class="Sign-button"><a href="Login/login.html">Rent Now</a></button>
@@ -83,13 +82,21 @@
         <div class="about-content">
             <img src="images/aboutus.jpg" alt="About Us Image">
             <div class="about-text">
-                <p>We are a specialized team committed to providing reliable car rental services. One of the advantages
+                <p id="about-paragraph">
+                    We are a specialized team committed to providing reliable car rental services. One of the advantages
                     of renting a car from us is offering competitive and transparent prices. By providing services such
-                    as comprehensive insurance ......</p>
-                <a href="#" class="read-more">Read More</a>
+                    as comprehensive insurance ...
+                    <span id="extra-text" style="display: none;">
+                        and 24/7 customer support, we ensure that you have a seamless and enjoyable rental experience.
+                        Our fleet consists of a variety of vehicles to suit your needs, whether you're traveling for
+                        business or leisure. Join us today and discover the difference!
+                    </span>
+                </p>
+                <a href="javascript:void(0);" class="read-more" id="read-more-btn">Read More</a>
             </div>
         </div>
     </section>
+    
 
     <!-- ------------------------Booking------------------------------------ -->
 
@@ -154,6 +161,8 @@
             <!-- Car cards will be added here dynamically -->
         </div>
     </section>
+
+
 
 
 

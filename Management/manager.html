@@ -50,9 +50,9 @@
             <table id="deviceTable">
                 <thead>
                     <tr>
-                        <th>Brand</th>
-                        <th>Model Name</th>
                         <th>Car Reg No</th>
+                        <th>Model Name</th>
+                        <th>Brand</th>
                         <th>Availability</th>
                         <th>Image</th>
                         <th>Action</th>
@@ -93,10 +93,6 @@
                             <label for="fuel">Fuel</label>
                             <select id="fuel" required></select>
                             <button type="button" id="manageFuelBtn">Manage</button>
-                        </div>
-                        <div class="form-group">
-                            <label for="fuelConsumption">Fuel Consumption</label>
-                            <input type="text" id="fuelConsumption" required />
                         </div>
                         <div class="form-group">
                             <label for="noOfPeople">No of People</label>
@@ -151,11 +147,9 @@
                         <th>Reg Number</th>
                         <th>NIC</th>
                         <th>Name</th>
-                        <th>Phone</th>
                         <th>Brand</th>
-                        <th>Model</th>
-                        <th>Rent Date</th>
-                        <th>Return Date</th> <!-- Added column -->
+                        <th>Status</th> <!-- Added column -->
+                        <th>Action</th> <!-- Added column -->
                     </tr>
                 </thead>
                 <tbody id="rental-body">
@@ -254,7 +248,7 @@
 
         <section class="return-container" id="returncontainer" style="display: none;">
             <h2>Return Car</h2>
-            <form id="return-motorbike-form">
+            <form id="return-car-form">
                 <div class="form-group">
                     <label for="return-nic">Customer NIC:</label>
                     <input type="text" id="return-nic" required>
