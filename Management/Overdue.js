@@ -9,13 +9,12 @@ function overdueShow() {
 document.addEventListener('DOMContentLoaded', function () {
     const overdueTableBody = document.getElementById('overdue-list');
 
-
     function calculateOverdue(booking) {
         const currentDate = new Date();
         const returnDate = new Date(booking.returnDate || currentDate);
         const expectedReturnDate = new Date(booking.rentDate);
         expectedReturnDate.setDate(expectedReturnDate.getDate() + 7);
-        // expectedReturnDate.setMinutes(expectedReturnDate.getMinutes() + 1); 
+        // expectedReturnDate.setMinutes(expectedReturnDate.getMinutes() + 1);
 
         if (returnDate > expectedReturnDate) {
             const overdueTime = Math.max(0, Math.floor((returnDate - expectedReturnDate) / (1000 * 60)));
@@ -24,13 +23,12 @@ document.addEventListener('DOMContentLoaded', function () {
         return 0;
     }
 
-    
     function loadOverduerentals() {
         const rentals = JSON.parse(localStorage.getItem('rentals')) || [];
-        console.log(rentals);
+        const overdueRentals = [];
         overdueTableBody.innerHTML = '';
 
-        rentals.forEach(function (booking, index) {
+        rentals.forEach(function (booking) {
             const overdueDays = calculateOverdue(booking);
             if (overdueDays > 0) {
                 const newRow = overdueTableBody.insertRow();
@@ -40,17 +38,17 @@ document.addEventListener('DOMContentLoaded', function () {
                     <td>${booking.regNumber}</td>
                     <td>${booking.rentDate}</td>
                     <td>${booking.returnDate || 'Not Returned'}</td>
-                    <td>${overdueDays} days</td>                 
+                    <td>${overdueDays} days</td>
                 `;
-                console.log(`Car with registration number ${booking.regNumber} is overdue by ${overdueDays} days.`);
-                if (!booking.returnDate) {
-                    alert(`Car with registration number ${booking.regNumber} is overdue by ${overdueDays} days.`);
-                }
+                overdueRentals.push({
+                    regNumber: booking.regNumber,
+                    overdueDays,
+                    username: booking.username
+                });
             }
         });
 
-
-        
+        localStorage.setItem('overdueRentals', JSON.stringify(overdueRentals));
     }
 
     loadOverduerentals();

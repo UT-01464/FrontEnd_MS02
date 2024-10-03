@@ -13,19 +13,28 @@ function displayrentals() {
     let rentals = JSON.parse(localStorage.getItem('rentals')) || [];
     const rentalTable = document.getElementById('rental-body');
     rentalTable.innerHTML = '';
-console.log(rentals)
+
     rentals.forEach((rental, index) => {
+        // Generate a serialized Reg No
+        let serialNumber = index + 1;  // Serialized number auto-generated
+        
+        // Fetch car details
+        let carDetails = JSON.parse(localStorage.getItem('cars')) || [];
+        let car = carDetails.find(car => car.carRegNo === rental.carRegNo);
+        let carRegNo = car ? car.carRegNo : 'N/A';  // Fetch car Reg No from dashboard
+
         const row = document.createElement('tr');
         row.innerHTML = `
-            <td>${rental.regNumber}</td>
+            <td>${serialNumber}</td>  <!-- Serialized Reg No -->
             <td>${rental.nic}</td>
             <td>${rental.username}</td>
             <td>${rental.number}</td>
+            <td>${carRegNo}</td>  <!-- Car Reg No from dashboard -->
             <td>${rental.rentDate}</td>
             <td>${rental.status}</td>
             <td>
-                <button class="btn btn-success btn-sm" class="acceptbtn" onclick="acceptRental(${index})">Accept</button>
-                <button class="btn btn-danger btn-sm" class="acceptbtn"  onclick="rejectRental(${index})">Reject</button>
+                <button class="btn btn-success btn-sm" onclick="acceptRental(${index})">Accept</button>
+                <button class="btn btn-danger btn-sm" onclick="rejectRental(${index})">Reject</button>
             </td>
         `;
         rentalTable.appendChild(row);
@@ -37,6 +46,7 @@ console.log(rentals)
         rentalTable.appendChild(row);
     }
 }
+
 
 // Function to accept a rental request
 function acceptRental(index) {

@@ -10,12 +10,12 @@ function returnShow() {
 
 function returnCar() {
     const returnNIC = document.getElementById('return-nic').value.trim();
-    const returnRegNumber = document.getElementById('return-registration').value.trim();
+    const returnCarRegNo = document.getElementById('return-registration').value.trim();  // Change to carRegNo
     const returnDate = new Date(); 
-    const returnDateISO = returnDate.toLocaleString (); 
+    const returnDateISO = returnDate.toLocaleString(); 
 
-    if (!returnNIC || !returnRegNumber) {
-        alert('Please fill in all fields.');
+    if (!returnNIC || !returnCarRegNo) {
+        alert('Please provide both NIC and Car Registration Number.');
         return;
     }
 
@@ -24,7 +24,8 @@ function returnCar() {
     let isOverdue = false;
 
     rentals = rentals.map(rental => {
-        if (rental.regNumber === returnRegNumber) {
+        // Validate both NIC and Car Registration Number (carRegNo)
+        if (rental.carRegNo === returnCarRegNo && rental.nic === returnNIC) {
             if (rental.returnDate) {
                 alert('Car has already been returned.');
                 return rental;
@@ -32,12 +33,12 @@ function returnCar() {
 
             const rentDate = new Date(rental.rentDate);
             const expectedReturnDate = new Date(rentDate);
-            expectedReturnDate.setMinutes(expectedReturnDate.getMinutes() + 1);             
-           
+            expectedReturnDate.setMinutes(expectedReturnDate.getMinutes() + 1);  // Adjust return time
+
             if (returnDate > expectedReturnDate) {
                 isOverdue = true;
             }
-            
+
             rental.returnDate = returnDateISO;
             updated = true;
         }
@@ -53,10 +54,6 @@ function returnCar() {
 
     if (isOverdue) {
         alert('Car is overdue.');
-        document.getElementById('dashboardcontainer').style.display = 'none';
-        document.getElementById('bookingcontainer').style.display = 'none';
-        document.getElementById('customercontainer').style.display = 'none';
-        document.getElementById('returncontainer').style.display = 'none';
         document.getElementById('overduecontainer').style.display = 'block';
         loadOverdueBookings();
     } else {
