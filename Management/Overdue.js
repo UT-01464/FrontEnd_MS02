@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     newRow.innerHTML = `
                     <td>${booking.nic}</td>
                     <td>${booking.username}</td>
-                    <td>${booking.regNumber}</td>
+                    <td>${booking.carRegNo}</td>
                     <td>${booking.rentDate}</td>
                     <td>${booking.returnDate || 'Not Returned'}</td>
                     <td>${overdueDays} days</td>

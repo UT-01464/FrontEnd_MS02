@@ -16,19 +16,22 @@ function displayrentals() {
 
     rentals.forEach((rental, index) => {
         // Generate a serialized Reg No
-        let serialNumber = index + 1;  // Serialized number auto-generated
+        let serialNumber =index + 1;  // Serialized number auto-generated
+        let regNo = "REG" + serialNumber +1000;
         
         // Fetch car details
         let carDetails = JSON.parse(localStorage.getItem('cars')) || [];
         let car = carDetails.find(car => car.carRegNo === rental.carRegNo);
         let carRegNo = car ? car.carRegNo : 'N/A';  // Fetch car Reg No from dashboard
+        let phoneNumber = loadUpdatedPhoneNumber(rental.nic);
+
 
         const row = document.createElement('tr');
         row.innerHTML = `
-            <td>${serialNumber}</td>  <!-- Serialized Reg No -->
+            <td>${regNo}</td>  <!-- Serialized Reg No -->
             <td>${rental.nic}</td>
             <td>${rental.username}</td>
-            <td>${rental.number}</td>
+            <td>${phoneNumber}</td>
             <td>${carRegNo}</td>  <!-- Car Reg No from dashboard -->
             <td>${rental.rentDate}</td>
             <td>${rental.status}</td>
@@ -92,6 +95,17 @@ function updateOverdueDetails(rental) {
     }
 }
 
+function loadUpdatedPhoneNumber(nic) {
+    // Fetch the updated phone numbers from local storage
+    const updatedPhoneNumbers = JSON.parse(localStorage.getItem('updatedPhoneNumbers')) || [];
+    const user = updatedPhoneNumbers.find(u => u.nic === nic);
+
+    if (user) {
+        return user.phone; // Return the updated phone number if it exists
+    } else {
+        return 'Phone number not found'; // Handle case where phone number is not updated
+    }
+}
 
 
 // Initialize the rental display on page load

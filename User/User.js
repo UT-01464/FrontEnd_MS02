@@ -134,7 +134,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-
     
     // Initialize displays on page load
     displayMyRentals();
@@ -188,25 +187,36 @@ document.addEventListener('DOMContentLoaded', function () {
     // Handle form submission for editing profile
     editProfileForm.addEventListener('submit', function (event) {
         event.preventDefault(); // Prevent form submission
-
-        // Get updated user information from form fields
-        const updatedUser = {
-            username: document.getElementById('username').value,
-            email: document.getElementById('email').value,
-            phone: document.getElementById('phone').value,
-            address: document.getElementById('address').value
+    
+        // Retrieve current user from session storage
+        const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+    
+        // Get updated phone number from form
+        const updatedPhoneNumber = {
+            nic: document.getElementById('nic').value, // Use NIC to associate the phone number
+            phone: document.getElementById('number').value
         };
-
-        // Update session storage with the new user information
-        sessionStorage.setItem('currentUser', JSON.stringify(updatedUser));
-
-        // Update user info on the page
-        userInfo.textContent = updatedUser.username;
-
-        // Close the modal
+    
+        // Push the updated phone number to a separate local storage array
+        let updatedPhoneNumbers = JSON.parse(localStorage.getItem('updatedPhoneNumbers')) || [];
+        const index = updatedPhoneNumbers.findIndex(user => user.nic === updatedPhoneNumber.nic);
+    
+        if (index > -1) {
+            // Update existing phone number entry
+            updatedPhoneNumbers[index].phone = updatedPhoneNumber.phone;
+        } else {
+            // Add new entry for the updated phone number
+            updatedPhoneNumbers.push(updatedPhoneNumber);
+        }
+    
+        // Save the updated array back to local storage
+        localStorage.setItem('updatedPhoneNumbers', JSON.stringify(updatedPhoneNumbers));
+    
+        // Notify the user and close the modal
+        alert('Phone number updated successfully!');
         closeProfileModal();
-
-        alert('Profile updated successfully!');
     });
+    
+    
 });
 
