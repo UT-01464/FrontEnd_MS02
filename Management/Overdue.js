@@ -6,42 +6,55 @@ function overdueShow() {
     document.getElementById('returncontainer').style.display = 'none';
 }
 
-function showOverdueAlerts() {
-    const rentals = JSON.parse(localStorage.getItem('rentals')) || [];
-    overdueList.innerHTML = ''; // Clear previous entries
+document.addEventListener('DOMContentLoaded', function () {
+    const overdueTableBody = document.getElementById('overdue-list');
 
-    const today = new Date();
+    function calculateOverdue(booking) {
+        const currentDate = new Date();
+        const returnDate = new Date(booking.returnDate || currentDate);
+        const expectedReturnDate = new Date(booking.rentDate);
+        // expectedReturnDate.setDate(expectedReturnDate.getDate() + 7);
+        expectedReturnDate.setMinutes(expectedReturnDate.getMinutes() + 1);
 
-    rentals.forEach(rental => {
-        // Convert dates from rental
-        const expectedReturnDate = new Date(rental.rentDate);
-        expectedReturnDate.setMinutes(expectedReturnDate.getMinutes() + 1);  // Adjust return time if needed
-
-        if (!rental.returnDate && today > expectedReturnDate) { // Check if it's overdue and not yet returned
-            const row = document.createElement('tr');
-
-            // Create table cells
-            row.innerHTML = `
-                <td>${rental.nic}</td>
-                <td>${rental.username}</td>
-                <td>${rental.carRegNo}</td>
-                <td>${new Date(rental.rentDate).toLocaleDateString()}</td>
-                <td>${expectedReturnDate.toLocaleDateString()}</td>
-                <td>${Math.ceil((today - expectedReturnDate) / (1000 * 60 * 60 * 24 ))} min</td>
-                <td>${rental.paymentStatus || 'Pending'}</td>
-            `;
-            
-            overdueList.appendChild(row);    
+        if (returnDate > expectedReturnDate) {
+            const overdueTime = Math.max(0, Math.floor((returnDate - expectedReturnDate) / (1000 * 60)));
+            return overdueTime;
         }
-    });
-
-    // Optionally, display a message if there are no overdue rentals
-    if (overdueList.childElementCount === 0) {
-        overdueList.innerHTML = '<tr><td colspan="7">No overdue rentals.</td></tr>';
+        return 0;
     }
-}
 
-// Call this function to show overdue alerts when appropriate
-window.onload = function () {
-    showOverdueAlerts();
-};
+    function loadOverduerentals() {
+        const rentals = JSON.parse(localStorage.getItem('rentals')) || [];
+        const overdueRentals = [];
+        overdueTableBody.innerHTML = '';
+
+        rentals.forEach(function (booking) {
+
+            if (booking.status === 'Accepted') {
+                const overdueDays = calculateOverdue(booking);
+                console.log(booking);
+                if (overdueDays > 0) {
+                    const newRow = overdueTableBody.insertRow();
+                    newRow.innerHTML = `
+                    <td>${booking.nic}</td>
+                    <td>${booking.username}</td>
+                    <td>${booking.carRegNo}</td>
+                    <td>${booking.rentDate}</td>
+                    <td>${booking.returnDate || 'Not Returned'}</td>
+                    <td>${overdueDays} days</td>
+                `;
+                    overdueRentals.push({
+                        regNumber: booking.regNumber,
+                        overdueDays,
+                        username: booking.username,
+                        nic:booking.nic,
+                        carRegNo: booking.carRegNo
+                    });
+                }
+            }
+        });
+
+        localStorage.setItem('overdueRentals', JSON.stringify(overdueRentals));
+    }
+    loadOverduerentals();
+});

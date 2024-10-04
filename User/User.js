@@ -1,11 +1,14 @@
 document.addEventListener('DOMContentLoaded', function () {
     const logoutBtn = document.getElementById('logoutBtn');
     const userInfo = document.getElementById('userInfo');
-
+    const availablecarBody = document.getElementById('car-list');
+    const myRentalsTableBody = document.getElementById('myRentalsTableBody');
+    const closeRentalsModal = document.getElementById('closeRentalsModal');
+    const searchBar = document.getElementById('searchBar');
     const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
-
+    const rentalsModal = document.getElementById('rentalsModal');
+    
     let cars = JSON.parse(localStorage.getItem('cars')) || [];
-
     let rentals = JSON.parse(localStorage.getItem('rentals')) || [];
 
     // Logout functionality
@@ -20,48 +23,45 @@ document.addEventListener('DOMContentLoaded', function () {
     if (userInfo && currentUser) {
         userInfo.textContent = `${currentUser.username}`;
     }
-    console.log(currentUser.username);
+    console.log(currentUser?.username);
 
-    // Customer page functionality
-    const availablecarBody = document.getElementById('car-list');
-    const myRentalsTableBody = document.getElementById('myRentalsTableBody');
-
-    // Display available car with search filtering
+    // Display available cars with search filtering
     function displayAvailablecar() {
-        const searchBar = document.getElementById('searchBar');
-        const searchQuery = searchBar.value.toLowerCase(); // Get and normalize the search query
+        const searchQuery = searchBar ? searchBar.value.toLowerCase() : ''; // Get and normalize the search query
 
         availablecarBody.innerHTML = ''; // Clear previous content
-        console.log(cars)
+
         cars.forEach(car => {
             // Check if the car matches the search query and is not rented
             if (!iscarRented(car.carRegNo) &&
-                (
-                    car.modelName.toLowerCase().includes(searchQuery) ||
-                    car.brand.toLowerCase().includes(searchQuery) ||
-                    car.price.toLowerCase().includes(searchQuery))) {
+                (car.fuel.toLowerCase().includes(searchQuery) ||
+                 car.fuelConsumption.toLowerCase().includes(searchQuery) ||
+                 car.modelName.toLowerCase().includes(searchQuery) ||
+                 car.brand.toLowerCase().includes(searchQuery) ||
+                 car.price.toLowerCase().includes(searchQuery))) {
 
                 const carBox = document.createElement('div');
                 carBox.classList.add('rent-box');
                 carBox.innerHTML = `
-                <img src="${car.image}" alt="${car.modelName}">
-                <div class="rent-layer">
-                    <h4>Register-No: ${car.carRegNo}</h4>
-                    <p>Model: ${car.modelName}</p>
-                    <p>Brand: ${car.brand}</p>
-                    <p>Amount: ${car.price} LKR</p>
-                    <a href="#" onclick="rentcar('${car.carRegNo}')"><i class='bx bx-link-external'></i></a>
-                </div>
-            `;
+                    <img src="${car.image}" alt="${car.modelName}">
+                    <div class="rent-layer">
+                        <h4>${car.carRegNo}</h4>
+                        <p>${car.fuelConsumption}</p>
+                        <p>Model: ${car.modelName}</p>
+                        <p>Brand: ${car.brand}</p>
+                        <p>Category: ${car.price}</p>
+                        <a href="#" onclick="rentcar('${car.carRegNo}')"><i class='bx bx-link-external'></i></a>
+                    </div>
+                `;
                 availablecarBody.appendChild(carBox); // Append car card to container
             }
         });
     }
 
     // Event listener to trigger the display function when the search query changes
-    document.getElementById('searchBar').addEventListener('input', displayAvailablecar);
-
-
+    if (searchBar) {
+        searchBar.addEventListener('input', displayAvailablecar);
+    }
 
     // Check if a car is currently rented
     function iscarRented(carRegNo) {
@@ -73,72 +73,74 @@ document.addEventListener('DOMContentLoaded', function () {
         const rental = {
             carRegNo,
             username: currentUser.username,
+
             nic: currentUser.nic,
             rentDate: new Date().toLocaleDateString(),
             status: "Pending" // Set initial status as "Pending"
         };
         rentals.push(rental); // Add new rental
         localStorage.setItem('rentals', JSON.stringify(rentals)); // Save rentals to local storage
-        displayAvailablecar(); // Refresh available car display
-        // Refresh user's rentals display
+        displayAvailablecar(); // Refresh available cars display
     };
 
     // Display user's rentals in a modal window
     function displayMyRentals() {
-        document.getElementById('profileModal').style.display = 'none'; // Hide profile modal if open
-    
-        const cars = JSON.parse(localStorage.getItem('cars')); // Retrieve car data from localStorage
-    
-        if (!myRentalsTableBody) return; // Check if the rentals table body exists
+        document.getElementById('profileModal').style.display = 'none';
+
+        if (!myRentalsTableBody) return; // Check if myRentalsTableBody exists
         myRentalsTableBody.innerHTML = ''; // Clear previous content
-    
-        rentals.forEach((rental) => {
-            if (rental.username === currentUser.username) { // Check if the rental belongs to the current user
-                const car = cars.find(c => c.carRegNo === rental.carRegNo); // Find the car in the cars array that matches the rental's carRegNo
-    
-                if (car) { // If the car is found
-                    const row = document.createElement('tr'); // Create a new table row
+
+        rentals.forEach((rental, index) => {
+            if (rental.username === currentUser.username) {
+                const car = cars.find(c => c.carRegNo === rental.carRegNo);
+                if (car) {
+                    const row = document.createElement('tr');
                     row.innerHTML = `
-                        <td>${car.carRegNo}</td> <!-- Display car registration number -->
-                        <td>${car.brand}</td> <!-- Display car brand -->
-                        <td>${car.modelName}</td> <!-- Display car model name -->
-                        <td>${car.price}LKR</td> <!-- Display car price -->
-                        <td>${rental.rentDate}</td> <!-- Display rental date -->
-                        <td>${rental.status}</td> <!-- Display rental status -->
+                        <td>${car.carRegNo}</td>
+                        <td>${car.brand}</td>
+                        <td>${car.modelName}</td>
+                        <td>${car.price}</td>
+                        <td>${rental.rentDate}</td>
+                        <td>${rental.status}</td> <!-- Display the rental status -->
                     `;
-                    console.log(rental.status);
-    
-                    myRentalsTableBody.appendChild(row); // Append the new row to the rentals table body
+                    myRentalsTableBody.appendChild(row); // Append row to rentals table
                 }
             }
         });
-    
-        rentalsModal.style.display = 'block'; // Show the rentals modal
+
+        rentalsModal.style.display = 'block'; // Show the modal
     }
-    
 
-    // Event listener to close the modal
-    closeRentalsModal.addEventListener('click', function () {
-        rentalsModal.style.display = 'none'; // Hide the modal
-    });
+    // Event listener to close the rentals modal
+    if (closeRentalsModal) {
+        closeRentalsModal.addEventListener('click', function () {
+            rentalsModal.style.display = 'none'; // Hide the modal
+        });
+    }
 
-    // Optional: Close the modal if the user clicks outside the modal content
+    // Close the modal if the user clicks outside the modal content
     window.addEventListener('click', function (event) {
         if (event.target === rentalsModal) {
             rentalsModal.style.display = 'none'; // Hide the modal
         }
     });
 
-    document.getElementById('rentalhistory').addEventListener('click', displayMyRentals);
-    // Initial display of user's rentals
+    // Event listener for rental history
+    const rentalHistoryBtn = document.getElementById('rentalhistory');
+    if (rentalHistoryBtn) {
+        rentalHistoryBtn.addEventListener('click', displayMyRentals);
+    }
 
 
+
+
+
+    
     // Initialize displays on page load
-    window.onload = function () {
-        displayMyRentals();
-        displayAvailablecar(); // Initial display of available car
-    };
+    displayMyRentals();
+    displayAvailablecar(); // Initial display of available cars
 });
+
 
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -186,25 +188,68 @@ document.addEventListener('DOMContentLoaded', function () {
     // Handle form submission for editing profile
     editProfileForm.addEventListener('submit', function (event) {
         event.preventDefault(); // Prevent form submission
-
-        // Get updated user information from form fields
-        const updatedUser = {
-            username: document.getElementById('username').value,
-            email: document.getElementById('email').value,
-            phone: document.getElementById('phone').value,
-            address: document.getElementById('address').value
+    
+        // Retrieve current user from session storage
+        const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+    
+        // Get updated phone number from form
+        const updatedPhoneNumber = {
+            nic: document.getElementById('nic').value, // Use NIC to associate the phone number
+            phone: document.getElementById('number').value
         };
-
-        // Update session storage with the new user information
-        sessionStorage.setItem('currentUser', JSON.stringify(updatedUser));
-
-        // Update user info on the page
-        userInfo.textContent = updatedUser.username;
-
-        // Close the modal
+    
+        // Push the updated phone number to a separate local storage array
+        let updatedPhoneNumbers = JSON.parse(localStorage.getItem('updatedPhoneNumbers')) || [];
+        const index = updatedPhoneNumbers.findIndex(user => user.nic === updatedPhoneNumber.nic);
+    
+        if (index > -1) {
+            // Update existing phone number entry
+            updatedPhoneNumbers[index].phone = updatedPhoneNumber.phone;
+        } else {
+            // Add new entry for the updated phone number
+            updatedPhoneNumbers.push(updatedPhoneNumber);
+        }
+    
+        // Save the updated array back to local storage
+        localStorage.setItem('updatedPhoneNumbers', JSON.stringify(updatedPhoneNumbers));
+    
+        // Notify the user and close the modal
+        alert('Phone number updated successfully!');
         closeProfileModal();
-
-        alert('Profile updated successfully!');
     });
+
+
+let customerID = currentUser.nic; 
+let overdueRentals = JSON.parse(localStorage.getItem('overdueRentals')) || [];
+let customerOverdueRentals = overdueRentals.filter(rental => rental.nic === customerID);
+
+let overdueAlertMessage = document.getElementById('overdue-alert-message');
+let rentalsTableBody = document.getElementById('overdue-rentals-table').getElementsByTagName('tbody')[0];
+
+if (customerOverdueRentals.length > 0) {
+    overdueAlertMessage.textContent = `You have ${customerOverdueRentals.length} overdue rental(s).`;
+
+    // Clear previous rows
+    rentalsTableBody.innerHTML = '';
+console.log(customerOverdueRentals);
+    // Populate the table with overdue rentals
+    customerOverdueRentals.forEach(rental => {
+        let row = rentalsTableBody.insertRow();
+
+        let cellRentalID = row.insertCell(0);
+        let cellItemName = row.insertCell(1);
+        let cellDueDate = row.insertCell(2);
+
+        cellRentalID.textContent = rental.carRegNo;  
+        cellItemName.textContent = rental.username;  
+        cellDueDate.textContent = rental.overdueDays;    
+    });
+} else {
+    overdueAlertMessage.textContent = 'You have no overdue rentals.';
+    // Clear previous rows if no overdue rentals
+    rentalsTableBody.innerHTML = '';
+}
+
+    
 });
 

@@ -50,9 +50,9 @@
             <table id="deviceTable">
                 <thead>
                     <tr>
-                        <th>Car Reg No</th>
+                        <th>Brand</th>
                         <th>Model Name</th>
-                        <th>Rental-Date</th>
+                        <th>Car Reg No</th>
                         <th>Availability</th>
                         <th>Image</th>
                         <th>Action</th>
@@ -140,16 +140,18 @@
 
 
         <section class="booking-container" id="bookingcontainer" style="display: none;">
-            <h2>Bookings</h2>
+            <h2>Rentals</h2>
             <table id="rental-table">
                 <thead>
                     <tr>
                         <th>Reg Number</th>
                         <th>NIC</th>
                         <th>Name</th>
-                        <th>Brand</th>
+                        <th>Car Reg No</th>
+                        <th>Rent Date</th>
                         <th>Status</th> <!-- Added column -->
                         <th>Action</th> <!-- Added column -->
+
                     </tr>
                 </thead>
                 <tbody id="rental-body">
@@ -159,7 +161,7 @@
 
 
             <!-- Modal Structure -->
-            <div id="bookingModal" class="modal">
+            <!-- <div id="bookingModal" class="modal">
                 <div class="modal-content">
                     <span class="closeBtn">&times;</span>
                     <h2>Add Booking</h2>
@@ -195,7 +197,7 @@
                         <button type="submit" class="save-Btn">Save Booking</button>
                     </form>
                 </div>
-            </div>
+            </div> -->
         </section>
 
 
@@ -212,7 +214,7 @@
                         <th>NIC</th>
                         <th>License Number</th>
                         <th>Email</th>
-                        <th>Booking History</th>
+                        <th>Rental History</th>
                     </tr>
                 </thead>
                 <tbody id="customer-body">
@@ -230,22 +232,19 @@
                         <th>NIC</th>
                         <th>Name</th>
                         <th>regNumber</th>
-                        <th>Bookingdate</th>
-                        <th>returndate</th>
-                        <th>overdue time</th>
-                        <th>Payment Status</th>
+                        <th>Booking Date</th>
+                        <th>Return Date</th>
+                        <th>Overdue Time</th>
                     </tr>
                 </thead>
                 <tbody id="overdue-list">
                     <!-- Overdue alerts will be displayed here -->
                 </tbody>
-
             </table>
             <p id="overduelist"></p>
-
         </section>
 
-
+        
         <section class="return-container" id="returncontainer" style="display: none;">
             <h2>Return Car</h2>
             <form id="return-car-form">

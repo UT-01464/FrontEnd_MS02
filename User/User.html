@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CARENT</title>
     <link rel="stylesheet" href="../Home.css">
+    <link rel="stylesheet" href="User.css">
 
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
@@ -39,23 +40,40 @@
 
         <i class="bx bx-menu" id="menu-icon"></i>
         <nav class="navbar">
-
-            <input type="text" name="Search" id="searchBar" class="searchBar" placeholder="Search cars Models here..">
-            
+            <a href="#Booking" onclick="carrentoption()">Booking</a>
+            <a href="#Feedback">Feedback</a>
             <a href="#profile" id="userInfo" class="editpro">Profile</a>
             <a href="#renatlModal" id="rentalhistory">Rentalhistory</a>
-            <a href="#Contactus">Contact US</a>
             <a href="#logout" id="logoutBtn">Log out</a>
+            <a href="#Contactus">Contact US</a>
 
-           
+            <input type="text" name="Search" id="searchBar" class="searchBar" placeholder="Search cars...">
+
         </nav>
-        
-        
-
 
     </header>
 
-   
+
+
+    <!-- ----------------------Overdue------------------------------------------------------ -->
+
+    <section>
+        <div id="overdue-alert-message"></div>
+        <table id="overdue-rentals-table">
+            <thead>
+                <tr>
+                    <th>Rental ID</th>
+                    <th>Item Name</th>
+                    <th>Due Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Rows will be added here dynamically -->
+            </tbody>
+        </table>
+    </section>
+
+
     <!-- ----------------------Car------------------------------------------------------ -->
 
     <section class="cars" id="Cars">
@@ -67,58 +85,94 @@
 
 
 
+    <!-- --------------------Feedback---------------------------------------------------- -->
+    <section class="section__container">
 
-
-
-        <!-- The Modal -->
-        <div id="profileModal" class="modal">
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <h2 style="text-align: center;">Edit Profile</h2>
-                <form id="editProfileForm" class="editprofile">
-                    <label for="username">Username:</label>
-                    <input type="text" id="username" name="username" required><br>
-    
-                    <label for="nic">Nic:</label>
-                    <input type="number" id="nic" name="nic" required><br>
-    
-                    <label for="number">Phone Number:</label>
-                    <input type="text" id="number" name="phone" required><br>
-
-                    <label for="number">Email:</label>
-                    <input type="email" id="number" name="Email" required><br>
-    
-                    <label for="password">Password:</label>
-                    <input type="password" id="password" name="password" required><br>
-    
-                    <button type="submit" class="savebutton">Save Changes</button>
-                </form>
+        <h1>What our customers say</h1>
+        <div class="section__grid">
+            <div class="section__card">
+                <span><i class="ri-double-quotes-l"></i></span>
+                <h4>Love the simplicity</h4>
+                <p>
+                    They understood our brand and created a stunning website design.
+                    Professional, responsive, and on-time delivery. Highly recommended!
+                </p>
+                <img src="images/gr1 (1).jpg" alt="user" />
+                <h5>Allan Collins</h5>
+                <h6>Managing Director</h6>
+            </div>
+            <div class="section__card">
+                <span><i class="ri-double-quotes-l"></i></span>
+                <h4>Excellent Designs</h4>
+                <p>
+                    Efficient, reliable, and results-oriented. Visually appealing
+                    website, improved online visibility. Highly recommended!
+                </p>
+                <img src="images/gr1 (2).jpg" alt="user" />
+                <h5>Tanya Grant</h5>
+                <h6>Ceo & Founder</h6>
+            </div>
+            <div class="section__card">
+                <span><i class="ri-double-quotes-l"></i></span>
+                <h4>Efficient and Reliable</h4>
+                <p>
+                    Best decision we made. Stunning website, exceptional support. Always
+                    available and prompt issue resolution. Hassle-free experience!
+                </p>
+                <img src="images/gr1 (3).jpg" alt="user" />
+                <h5>Clay Washington</h5>
+                <h6>Fashion Designer</h6>
             </div>
         </div>
-    
-        <!-- Rentals Modal -->
-        <div id="rentalsModal" class="modal">
-            <div class="modal-content">
-                <span class="close" id="closeRentalsModal">&times;</span>
-                <h2 style="text-align: center;">My Rentals</h2>
-                <table id="myRentalsTable" class="rentals-table">
-                    <thead>
-                        <tr>
-                            <th>Registration Number</th>
-                            <th>Brand</th>
-                            <th>Model</th>
-                            <th>Rental-Amount</th>
-                            <th>Rent Date</th>
-                            <th>status</th>
-                        </tr>
-                    </thead>
-                    <tbody id="myRentalsTableBody">
-                        <!-- Rental rows will be inserted here dynamically -->
-                    </tbody>
-                </table>
-            </div>
+    </section>
+
+
+    <!-- The Modal -->
+    <div id="profileModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 style="text-align: center;">Edit Profile</h2>
+            <form id="editProfileForm" class="editprofile">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required><br>
+
+                <label for="nic">Nic:</label>
+                <input type="number" id="nic" name="nic" required><br>
+
+                <label for="number">Phone Number:</label>
+                <input type="text" id="number" name="phone" required><br>
+
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required><br>
+
+                <button type="submit" class="savebutton">Save Changes</button>
+            </form>
         </div>
-    
+    </div>
+
+    <!-- Rentals Modal -->
+    <div id="rentalsModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeRentalsModal">&times;</span>
+            <h2 style="text-align: center;">My Rentals</h2>
+            <table id="myRentalsTable" class="rentals-table">
+                <thead>
+                    <tr>
+                        <th>Registration Number</th>
+                        <th>Brand</th>
+                        <th>Model</th>
+                        <th>Price</th>
+                        <th>Rent Date</th>
+                        <th>status</th>
+                    </tr>
+                </thead>
+                <tbody id="myRentalsTableBody">
+                    <!-- Rental rows will be inserted here dynamically -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
 
     <!-- -------------------------------------------Contact Us--------------------------------------------------------- -->
 
@@ -141,7 +195,7 @@
 
     <div class="footerbar-section__container footerbar-footer__bar">
         <h4>CAR<span>RENT</span> </h4>
-        <p>Copyright © 2024 CARRENT  . All rights reserved.</p>
+        <p>Copyright © 2024 CARRENT . All rights reserved.</p>
         <ul class="footerbar-footer__socials">
             <li>
                 <a href="#"><i class="ri-facebook-fill"></i></a>
