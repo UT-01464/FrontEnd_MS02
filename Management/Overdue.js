@@ -6,8 +6,9 @@ function overdueShow() {
     document.getElementById('returncontainer').style.display = 'none';
 }
 
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded',function(){
     const overdueTableBody = document.getElementById('overdue-list');
+  
 
     function calculateOverdue(booking) {
         const currentDate = new Date();
@@ -22,6 +23,8 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         return 0;
     }
+
+
 
     function loadOverduerentals() {
         const rentals = JSON.parse(localStorage.getItem('rentals')) || [];

@@ -950,7 +950,6 @@ textarea{
   .footerbar-footer__socials li a:hover {
     color: #007bff;
   }
- 
   
 /*--------------------------------------------------------------- user model */
   
@@ -1096,23 +1095,23 @@ input {
 
 /* Initial state of the search box */
 .searchBar[type=text] {
-    border-radius: 50%; /* Make it circular */
-    width: 30px; /* Initial width */
+    /* border-radius: 50%; Make it circular */
+    width: 300px; /* Initial width */
     height: 30px; /* Height */
     border: 1px solid var(--main-color); /* Border */
     background-color: var(--second-bg-color); /* Background color */
     position: relative; /* Adjust position for centering */
     transition: width 0.4s ease-out; /* Smooth width transition */
-    z-index: 1000; /* Layering order */
-    text-align: center;
+    /* z-index: 1000; Layering order */
+    text-align: left;
     color: white;
 }
 
 /* Animation when the search box gains focus */
-.searchBar[type=text]:focus {
-    width: 200px; /* Expanded width when focused */
-    border-radius: 5px; /* Change to rounded rectangle */
-}
+/* .searchBar[type=text]:focus { */
+    /* width: 200px; Expanded width when focused */
+    /* border-radius: 5px; Change to rounded rectangle */
+/* } */
 
 /* Style for the search bar container (to center it) */
 .search-container {

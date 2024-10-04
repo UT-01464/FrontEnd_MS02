@@ -28,11 +28,9 @@ function displayrentals() {
 
         const row = document.createElement('tr');
         row.innerHTML = `
-            <td>${regNo}</td>  <!-- Serialized Reg No -->
+            <td>${rental.carRegNo}</td>
             <td>${rental.nic}</td>
             <td>${rental.username}</td>
-            <td>${phoneNumber}</td>
-            <td>${carRegNo}</td>  <!-- Car Reg No from dashboard -->
             <td>${rental.rentDate}</td>
             <td>${rental.status}</td>
             <td>
