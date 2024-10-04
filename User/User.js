@@ -84,9 +84,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Display user's rentals in a modal window
     function displayMyRentals() {
-        document.getElementById('profileModal').style.display = 'none';
-
-        if (!myRentalsTableBody) return; // Check if myRentalsTableBody exists
+        document.getElementById('profileModal').style.display = 'none'; // Hide profile modal if open
+    
+        const cars = JSON.parse(localStorage.getItem('cars')); // Retrieve car data from localStorage
+    
+        if (!myRentalsTableBody) return; // Check if the rentals table body exists
         myRentalsTableBody.innerHTML = ''; // Clear previous content
 
         rentals.forEach((rental, index) => {
@@ -106,9 +108,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             }
         });
-
-        rentalsModal.style.display = 'block'; // Show the modal
+    
+        rentalsModal.style.display = 'block'; // Show the rentals modal
     }
+    
 
     // Event listener to close the rentals modal
     if (closeRentalsModal) {

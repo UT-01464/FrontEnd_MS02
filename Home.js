@@ -22,9 +22,37 @@ document.addEventListener('DOMContentLoaded', () => {
 
             
                 carList.appendChild(newDiv);
+
+                const rentNowButton = newDiv.querySelector('.rent-now');
+                rentNowButton.addEventListener('click', () => {
+                    window.location.href = 'Login/Login.html';
+                });
             
         });
     }
 
     addCar();
 });
+
+
+
+
+
+
+
+
+
+
+// read-more
+
+document.getElementById("read-more-btn").addEventListener("click", function() {
+    const extraText = document.getElementById("extra-text");
+    if (extraText.style.display === "none") {
+        extraText.style.display = "inline"; // Show the extra text
+        this.textContent = "Read Less"; // Change the button text to 'Read Less'
+    } else {
+        extraText.style.display = "none"; // Hide the extra text
+        this.textContent = "Read More"; // Change back to 'Read More'
+    }
+});
+
