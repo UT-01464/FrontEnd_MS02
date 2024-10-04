@@ -6,70 +6,43 @@ function overdueShow() {
     document.getElementById('returncontainer').style.display = 'none';
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-    const overdueTableBody = document.getElementById('overdue-list');
+function showOverdueAlerts() {
+    const rentals = JSON.parse(localStorage.getItem('rentals')) || [];
+    const overdueList = document.getElementById('overdue-list');
+    overdueList.innerHTML = ''; // Clear previous entries
 
-    
-    function calculateOverdue(booking) {
-        const currentDate = new Date();
-        const returnDate = new Date(booking.returnDate || currentDate);
-        const expectedReturnDate = new Date(booking.rentDate);
-        expectedReturnDate.setMinutes(expectedReturnDate.getMinutes() + 1); 
+    const today = new Date();
 
-        if (returnDate > expectedReturnDate) {
-            const overdueTime = Math.max(0, Math.floor((returnDate - expectedReturnDate) / (1000 * 60))); 
-            return overdueTime;
+    rentals.forEach(rental => {
+        // Convert dates from rental
+        const expectedReturnDate = new Date(rental.rentDate);
+        expectedReturnDate.setMinutes(expectedReturnDate.getMinutes() + 1);  // Adjust return time if needed
+
+        if (!rental.returnDate && today > expectedReturnDate) { // Check if it's overdue and not yet returned
+            const row = document.createElement('tr');
+
+            // Create table cells
+            row.innerHTML = `
+                <td>${rental.nic}</td>
+                <td>${rental.username}</td>
+                <td>${rental.carRegNo}</td>
+                <td>${new Date(rental.rentDate).toLocaleDateString()}</td>
+                <td>${expectedReturnDate.toLocaleDateString()}</td>
+                <td>${Math.ceil((today - expectedReturnDate) / (1000 * 60 * 60 * 24 ))} min</td>
+                <td>${rental.paymentStatus || 'Pending'}</td>
+            `;
+
+            overdueList.appendChild(row);
         }
-        return 0;
+    });
+
+    // Optionally, display a message if there are no overdue rentals
+    if (overdueList.childElementCount === 0) {
+        overdueList.innerHTML = '<tr><td colspan="7">No overdue rentals.</td></tr>';
     }
+}
 
-    function markAsPaid(index) {
-        let bookings = JSON.parse(localStorage.getItem('bookings')) || [];
-        const booking = bookings[index];
-
-        if (booking) {
-         
-            booking.paid = true;
-            localStorage.setItem('bookings', JSON.stringify(bookings));
-
-      
-            loadOverdueBookings();
-        }
-    }
-
-    function loadOverdueBookings() {
-        const bookings = JSON.parse(localStorage.getItem('bookings')) || [];
-        console.log(bookings);
-        overdueTableBody.innerHTML = '';
-
-        bookings.forEach(function (booking, index) {
-            const overdueMinutes = calculateOverdue(booking);
-            if (overdueMinutes > 0) { 
-                const newRow = overdueTableBody.insertRow();
-                newRow.innerHTML = `
-                    <td>${booking.nic}</td>
-                    <td>${booking.name}</td>
-                    <td>${booking.regNumber}</td>
-                    <td>${booking.rentDate}</td>
-                    <td>${booking.returnDate || 'Not Returned'}</td>
-                    <td>${overdueMinutes} minutes</td>
-                    <td>${booking.paid ? '' : '<button class="pay-btn" data-index="${index}">Pay</button>'}</td>
-                `;
-                console.log(`Car with registration number ${booking.regNumber} is overdue by ${overdueMinutes} minutes.`);
-                if (!booking.paid) {
-                    alert(`Car with registration number ${booking.regNumber} is overdue by ${overdueMinutes} minutes.`);
-                }
-            }
-        });
-
-   
-        document.querySelectorAll('.pay-btn').forEach(button => {
-            button.addEventListener('click', function () {
-                markAsPaid(this.dataset.index);
-                
-            });
-        });
-    }
-
-    loadOverdueBookings();
-});
+// Call this function to show overdue alerts when appropriate
+window.onload = function () {
+    showOverdueAlerts();
+};
