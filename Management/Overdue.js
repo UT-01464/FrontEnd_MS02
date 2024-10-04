@@ -13,8 +13,8 @@ document.addEventListener('DOMContentLoaded', function () {
         const currentDate = new Date();
         const returnDate = new Date(booking.returnDate || currentDate);
         const expectedReturnDate = new Date(booking.rentDate);
-        expectedReturnDate.setDate(expectedReturnDate.getDate() + 7);
-        // expectedReturnDate.setMinutes(expectedReturnDate.getMinutes() + 1);
+        // expectedReturnDate.setDate(expectedReturnDate.getDate() + 7);
+        expectedReturnDate.setMinutes(expectedReturnDate.getMinutes() + 1);
 
         if (returnDate > expectedReturnDate) {
             const overdueTime = Math.max(0, Math.floor((returnDate - expectedReturnDate) / (1000 * 60)));
@@ -29,10 +29,12 @@ document.addEventListener('DOMContentLoaded', function () {
         overdueTableBody.innerHTML = '';
 
         rentals.forEach(function (booking) {
-            const overdueDays = calculateOverdue(booking);
-            if (overdueDays > 0) {
-                const newRow = overdueTableBody.insertRow();
-                newRow.innerHTML = `
+
+            if (booking.status === 'Accepted') {
+                const overdueDays = calculateOverdue(booking);
+                if (overdueDays > 0) {
+                    const newRow = overdueTableBody.insertRow();
+                    newRow.innerHTML = `
                     <td>${booking.nic}</td>
                     <td>${booking.username}</td>
                     <td>${booking.regNumber}</td>
@@ -40,11 +42,13 @@ document.addEventListener('DOMContentLoaded', function () {
                     <td>${booking.returnDate || 'Not Returned'}</td>
                     <td>${overdueDays} days</td>
                 `;
-                overdueRentals.push({
-                    regNumber: booking.regNumber,
-                    overdueDays,
-                    username: booking.username
-                });
+                    overdueRentals.push({
+                        regNumber: booking.regNumber,
+                        overdueDays,
+                        username: booking.username,
+                        carRegNo: booking.carRegNo
+                    });
+                }
             }
         });
 

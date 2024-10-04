@@ -52,6 +52,9 @@ function displayrentals() {
 function acceptRental(index) {
     let rentals = JSON.parse(localStorage.getItem('rentals')) || [];
     rentals[index].status = "Accepted";
+
+    updateOverdueDetails(rentals[index]);
+
     localStorage.setItem('rentals', JSON.stringify(rentals));
     displayrentals(); // Refresh the manager's rental table
 }
@@ -63,6 +66,33 @@ function rejectRental(index) {
     localStorage.setItem('rentals', JSON.stringify(rentals));
     displayrentals(); // Refresh the manager's rental table
 }
+
+
+
+// Function to update overdue details when rental is accepted
+function updateOverdueDetails(rental) {
+    const currentDate = new Date();
+    const rentDate = new Date(rental.rentDate);
+    const expectedReturnDate = new Date(rentDate);
+    expectedReturnDate.setMinutes(rentDate.getMinutes() + 1); // Adjust this logic as needed
+
+    const overdueTime = currentDate > expectedReturnDate ? Math.max(0, Math.floor((currentDate - expectedReturnDate) / (1000 * 60))) : 0;
+
+    if (overdueTime > 0) {
+        const overdueRentals = JSON.parse(localStorage.getItem('overdueRentals')) || [];
+        overdueRentals.push({
+            nic: rental.nic,
+            username: rental.username,
+            regNumber: rental.carRegNo,
+            rentDate: rental.rentDate,
+            returnDate: rental.returnDate || 'Not Returned',
+            overdueTime
+        });
+        localStorage.setItem('overdueRentals', JSON.stringify(overdueRentals)); // Save updated overdue details
+    }
+}
+
+
 
 // Initialize the rental display on page load
 
