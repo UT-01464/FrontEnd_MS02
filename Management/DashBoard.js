@@ -121,7 +121,6 @@ document.addEventListener('DOMContentLoaded', function () {
         const year = document.getElementById('year').value;
         const transmission = document.getElementById('transmission').value;
         const fuel = document.getElementById('fuel').value;
-        const fuelConsumption = document.getElementById('fuelConsumption').value;
         const noOfPeople = document.getElementById('noOfPeople').value;
         const price = document.getElementById('price').value;
 
@@ -141,7 +140,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     year,
                     transmission,
                     fuel,
-                    fuelConsumption,
                     noOfPeople,
                     price,
                     image: base64Image
@@ -165,7 +163,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 year,
                 transmission,
                 fuel,
-                fuelConsumption,
                 noOfPeople,
                 price,
                 image: base64Image || editingRow?.dataset.image || '' 
@@ -190,7 +187,6 @@ document.addEventListener('DOMContentLoaded', function () {
         editingRow.dataset.year = carData.year;
         editingRow.dataset.transmission = carData.transmission;
         editingRow.dataset.fuel = carData.fuel;
-        editingRow.dataset.fuelConsumption = carData.fuelConsumption;
         editingRow.dataset.noOfPeople = carData.noOfPeople;
         editingRow.dataset.price = carData.price;
         editingRow.dataset.image = carData.image;
@@ -202,9 +198,9 @@ document.addEventListener('DOMContentLoaded', function () {
     function createRow(carData) {
         const newRow = document.createElement('tr');
         newRow.innerHTML = `
-            <td>${carData.brand}</td>
-            <td>${carData.modelName}</td>
             <td>${carData.carRegNo}</td>
+            <td>${carData.modelName}</td>
+            <td>${carData.brand}</td>
             <td>${carData.availability}</td> 
             <td><img src="${carData.image}" alt="${carData.modelName} Image" style="width: 100px; height: auto;"></td>
 
@@ -215,7 +211,6 @@ document.addEventListener('DOMContentLoaded', function () {
         newRow.dataset.year = carData.year;
         newRow.dataset.transmission = carData.transmission;
         newRow.dataset.fuel = carData.fuel;
-        newRow.dataset.fuelConsumption = carData.fuelConsumption;
         newRow.dataset.noOfPeople = carData.noOfPeople;
         newRow.dataset.price = carData.price;
         newRow.dataset.image = carData.image;
@@ -233,11 +228,9 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('modelName').value = row.cells[1].textContent;
         document.getElementById('carRegNo').value = row.cells[2].textContent;
         document.getElementById('availability').value = row.cells[3].textContent;
-
         document.getElementById('year').value = row.dataset.year;
         document.getElementById('transmission').value = row.dataset.transmission;
         document.getElementById('fuel').value = row.dataset.fuel;
-        document.getElementById('fuelConsumption').value = row.dataset.fuelConsumption;
         document.getElementById('noOfPeople').value = row.dataset.noOfPeople;
         document.getElementById('price').value = row.dataset.price;
 
@@ -268,14 +261,13 @@ document.addEventListener('DOMContentLoaded', function () {
         const cars = [];
         tableBody.querySelectorAll('tr').forEach(row => {
             const carData = {
-                brand: row.cells[0].textContent,
+                carRegNo: row.cells[0].textContent,
                 modelName: row.cells[1].textContent,
-                carRegNo: row.cells[2].textContent,
+                brand: row.cells[2].textContent,
                 availability: row.cells[3].textContent,
                 year: row.dataset.year,
                 transmission: row.dataset.transmission,
                 fuel: row.dataset.fuel,
-                fuelConsumption: row.dataset.fuelConsumption,
                 noOfPeople: row.dataset.noOfPeople,
                 price: row.dataset.price,
                 image: row.dataset.image
