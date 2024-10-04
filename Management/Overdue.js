@@ -8,7 +8,6 @@ function overdueShow() {
 
 function showOverdueAlerts() {
     const rentals = JSON.parse(localStorage.getItem('rentals')) || [];
-    const overdueList = document.getElementById('overdue-list');
     overdueList.innerHTML = ''; // Clear previous entries
 
     const today = new Date();
@@ -31,8 +30,8 @@ function showOverdueAlerts() {
                 <td>${Math.ceil((today - expectedReturnDate) / (1000 * 60 * 60 * 24 ))} min</td>
                 <td>${rental.paymentStatus || 'Pending'}</td>
             `;
-
-            overdueList.appendChild(row);
+            
+            overdueList.appendChild(row);    
         }
     });
 
