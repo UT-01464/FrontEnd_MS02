@@ -123,18 +123,8 @@ background-color: var(--second-bg-color);
    /* position:absolute; */
    /* margin-right: 90px; */
    
-  right: 0; 
-   /* -webkit-transition: width 0.4s ease-out; 
-   transition: width 0.4s ease-out; */
-   /* z-index: 1000; */
-   /* Add other styling properties if needed */
+  right: 0;
 }
 
-/* Animation when the search box gains focus */
-/* .searchBar[type=text]:focus {
-   width: 20%;
-   z-index: 1000;
-   border-radius: 5%;
 
-} */
 

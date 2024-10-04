@@ -449,7 +449,7 @@ form {
 }
 
 /* Title styling */
-.carh2 {
+.carh2, .overdueh2 {
     color: #ffffff; /* White color for the title */
     font-family: "OpenSans-Bold"; /* Font for the title */
     font-size: 24px; /* Font size for the title */
@@ -457,6 +457,14 @@ form {
     text-align: center; /* Center the title */
 }
 
+#overdue-alert-message{
+    color: #ffffff; /* White color for the title */
+    font-family: "OpenSans-Bold"; /* Font for the title */
+    font-size: 18px; /* Font size for the title */
+    margin-bottom: 20px; /* Space below the title */
+    text-align: center;
+
+}
 /* Styling for the car list */
 .car-list {
     display: flex; /* Use flexbox for layout */
@@ -942,7 +950,6 @@ textarea{
   .footerbar-footer__socials li a:hover {
     color: #007bff;
   }
-
   
 /*--------------------------------------------------------------- user model */
   
@@ -955,12 +962,12 @@ textarea{
     padding: 20px;
 }
 
-table {
+table ,#overdue-rentals-table{
     width: 100%;
     border-collapse: collapse;
 }
 
-th,
+th,#overdue-rentals-table th,#overdue-rentals-table td
 td {
     padding: 10px;
     border: 1px solid #ddd;
