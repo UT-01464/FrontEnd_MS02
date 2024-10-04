@@ -24,11 +24,11 @@ function showOverdueAlerts() {
             // Create table cells
             row.innerHTML = `
                 <td>${rental.nic}</td>
-                <td>${rental.name}</td>
+                <td>${rental.username}</td>
                 <td>${rental.carRegNo}</td>
                 <td>${new Date(rental.rentDate).toLocaleDateString()}</td>
                 <td>${expectedReturnDate.toLocaleDateString()}</td>
-                <td>${Math.ceil((today - expectedReturnDate) / (1000 * 60 * 60 * 24 ))}</td>
+                <td>${Math.ceil((today - expectedReturnDate) / (1000 * 60 * 60 * 24 ))} min</td>
                 <td>${rental.paymentStatus || 'Pending'}</td>
             `;
 

@@ -46,10 +46,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 carBox.innerHTML = `
                 <img src="${car.image}" alt="${car.modelName}">
                 <div class="rent-layer">
-                    <h4>${car.carRegNo}</h4>
+                    <h4>Register-No: ${car.carRegNo}</h4>
                     <p>Model: ${car.modelName}</p>
                     <p>Brand: ${car.brand}</p>
-                    <p>Category: ${car.price}</p>
+                    <p>Amount: ${car.price} LKR</p>
                     <a href="#" onclick="rentcar('${car.carRegNo}')"><i class='bx bx-link-external'></i></a>
                 </div>
             `;
