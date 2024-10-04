@@ -17,7 +17,7 @@ function displayrentals() {
     rentals.forEach((rental, index) => {
         // Generate a serialized Reg No
         let serialNumber =index + 1;  // Serialized number auto-generated
-        let regNo = "REG" + serialNumber +1000;
+        let regNo = "REG" + serialNumber;
         
         // Fetch car details
         let carDetails = JSON.parse(localStorage.getItem('cars')) || [];

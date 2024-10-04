@@ -216,7 +216,22 @@ document.addEventListener('DOMContentLoaded', function () {
         alert('Phone number updated successfully!');
         closeProfileModal();
     });
-    
+
+
+let customerID = currentUser.nic; 
+
+let overdueRentals = JSON.parse(localStorage.getItem('overdueRentals')) || [];
+
+let customerOverdueRentals = overdueRentals.filter(rental => rental.nic === customerID);
+
+let overdueAlertMessage = document.getElementById('overdue-alert-message');
+
+if (customerOverdueRentals.length > 0) {
+    overdueAlertMessage.textContent = `You have ${customerOverdueRentals.length} overdue rental(s).`;
+} else {
+    overdueAlertMessage.textContent = 'You have no overdue rentals.';
+}
+
     
 });
 

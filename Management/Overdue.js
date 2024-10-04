@@ -46,6 +46,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         regNumber: booking.regNumber,
                         overdueDays,
                         username: booking.username,
+                        nic:booking.nic,
                         carRegNo: booking.carRegNo
                     });
                 }
