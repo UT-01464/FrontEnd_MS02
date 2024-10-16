@@ -1,0 +1,14 @@
+#overdue-rentals-table {
+    margin-left: 400px;
+    margin-top: 30px;
+    justify-content: center;
+    width: 50%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}

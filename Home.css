@@ -449,7 +449,7 @@ form {
 }
 
 /* Title styling */
-.carh2 {
+.carh2, .overdueh2 {
     color: #ffffff; /* White color for the title */
     font-family: "OpenSans-Bold"; /* Font for the title */
     font-size: 24px; /* Font size for the title */
@@ -457,6 +457,14 @@ form {
     text-align: center; /* Center the title */
 }
 
+#overdue-alert-message{
+    color: #ffffff; /* White color for the title */
+    font-family: "OpenSans-Bold"; /* Font for the title */
+    font-size: 18px; /* Font size for the title */
+    margin-bottom: 20px; /* Space below the title */
+    text-align: center;
+
+}
 /* Styling for the car list */
 .car-list {
     display: flex; /* Use flexbox for layout */
@@ -943,6 +951,8 @@ textarea{
     color: #007bff;
   }
   
+/*--------------------------------------------------------------- user model */
+  
   
 .hidden {
     display: none;
@@ -952,40 +962,45 @@ textarea{
     padding: 20px;
 }
 
-table {
+table ,#overdue-rentals-table{
     width: 100%;
     border-collapse: collapse;
 }
 
-th,
+th,#overdue-rentals-table th,#overdue-rentals-table td
 td {
     padding: 10px;
     border: 1px solid #ddd;
     text-align: left;
 }
 
-  .modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.4);
-    color: var(--second-bg-color);
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0; /* Align to the left */
+    top: 0; /* Align to the top */
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0, 0, 0, 0.634); /* Black with opacity */
+    color: var(--second-bg-color); /* Text color */
 }
 
 .modal-content {
-    background-color: var(--second-bg-color);
-    margin: 15% auto;
-    padding: 20px;
-    border: 1px solid #000000;
-    width: 50%;
-    color: var(--main-color);
-    border-radius: 20px;
+    background-color: rgb(0, 0, 0); /* Modal content background */
+    margin: 15% auto; /* Center the modal vertically and horizontally */
+    padding: 20px; /* Space inside the modal */
+    border: 1px solid #000; /* Border around the modal */
+    width: 80%; /* Width of the modal content */
+    max-width: 800px; /* Maximum width of the modal content */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Shadow effect */
+    color: white;
+    font-size: medium;
+    
 }
+
 
 input {
     border: 1px solid #000000;
@@ -1014,8 +1029,8 @@ input {
     text-decoration: none;
     cursor: pointer;
     color: #0ef;
-    height: 2.5rem;
-    width: 10rem;
+    text-align: center;
+   
 }
 
 .savebutton:hover {
@@ -1025,19 +1040,26 @@ input {
 }
 
 .modal-content {
-    width: 30%;
+    width: 50%; /* Width of the modal content */
+    background-color: #00000094; /* Semi-transparent black background */
+    padding: 20px; /* Add some padding for content spacing */
+    border-radius: 10px; /* Optional: Rounded corners */
+    box-shadow: 0 4px 15px rgba(160, 153, 153, 0.3); /* Add box shadow */
 }
+
 
 .editprofile {
     display: flexbox;
-    padding: 20px;
+    padding: 30px;
+    padding-top:2%;
 
 }
 
 .editprofile label {
     display: flex;
     margin-bottom: 5px;
-    font-size: 1.5rem;
+    font-size:medium;
+    color: white
 }
 
 .editprofile input {
@@ -1046,6 +1068,9 @@ input {
     padding: 5px;
     border-radius: 5px;
     margin: 5px;
+    font-size: medium;
+    text-align: center;
+    font-weight: bold;
 }
 
 .editprofile button {
@@ -1059,28 +1084,41 @@ input {
 
 }
 
+/* Container for the navigation bar */
+.navbar {
+    display: flex; /* Use flexbox for alignment */
+    justify-content: space-between; /* Space between items */
+    align-items: end; /* Center items vertically */
+    padding: 10px 20px; /* Padding for the navbar */
+    /* background-color: var(--second-bg-color); Background color of navbar */
+}
+
 /* Initial state of the search box */
 .searchBar[type=text] {
-   border-radius: 100%;
-   width: 30px;
-   height: 30px;
-   border: 1px solid var(--main-color);
-background-color: var(--second-bg-color);
-   position:absolute;
-   margin-right: 90px;
-   
-   right: 0; /* Anchor to the right side */
-   -webkit-transition: width 0.4s ease-out;
-   transition: width 0.4s ease-out;
-   z-index: 1000;
-   /* Add other styling properties if needed */
+    /* border-radius: 50%; Make it circular */
+    width: 300px; /* Initial width */
+    height: 30px; /* Height */
+    border: 1px solid var(--main-color); /* Border */
+    background-color: var(--second-bg-color); /* Background color */
+    position: relative; /* Adjust position for centering */
+    transition: width 0.4s ease-out; /* Smooth width transition */
+    /* z-index: 1000; Layering order */
+    text-align: left;
+    color: white;
 }
 
 /* Animation when the search box gains focus */
-.searchBar[type=text]:focus {
-   width: 20%;
-   z-index: 1000;
-   border-radius: 5%;
+/* .searchBar[type=text]:focus { */
+    /* width: 200px; Expanded width when focused */
+    /* border-radius: 5px; Change to rounded rectangle */
+/* } */
 
+/* Style for the search bar container (to center it) */
+.search-container {
+    flex-grow: 5; /* Allow it to take available space */
+    display: flex; /* Use flexbox for alignment */
+    justify-content: center; /* Center the search bar horizontally */
+    align-items: center; /* Center items vertically */
 }
+
 

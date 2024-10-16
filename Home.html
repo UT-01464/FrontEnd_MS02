@@ -41,10 +41,9 @@
         <nav class="navbar">
             <a href="#Home">Home</a>
             <a href="#About">About</a>
-            <a href="#Booking">Booking</a>
             <a href="#Services">Services</a>
             <a href="#Cars">Cars</a>
-            <a href="#Contactus">Contact US</a>
+            <a href="#contactUs">Contact US</a>
         </nav>
 
         <button class="Sign-button"><a href="Login/login.html">Rent Now</a></button>
@@ -83,69 +82,25 @@
         <div class="about-content">
             <img src="images/aboutus.jpg" alt="About Us Image">
             <div class="about-text">
-                <p>We are a specialized team committed to providing reliable car rental services. One of the advantages
+                <p id="about-paragraph">
+                    We are a specialized team committed to providing reliable car rental services. One of the advantages
                     of renting a car from us is offering competitive and transparent prices. By providing services such
-                    as comprehensive insurance ......</p>
-                <a href="#" class="read-more">Read More</a>
+                    as comprehensive insurance ...
+                    <span id="extra-text" style="display: none;">
+                        and 24/7 customer support, we ensure that you have a seamless and enjoyable rental experience.
+                        Our fleet consists of a variety of vehicles to suit your needs, whether you're traveling for
+                        business or leisure. Join us today and discover the difference!
+                    </span>
+                </p>
+                <a href="javascript:void(0);" class="read-more" id="read-more-btn">Read More</a>
             </div>
         </div>
     </section>
+    
 
     <!-- ------------------------Booking------------------------------------ -->
 
-    <section class="booking" id="Booking">
-        <h2>Book Now</h2>
-        <div class="booking-form">
-            <form>
-                <table>
-                    <tr>
-                        <div class="row">
-                            <div class="form-group">
-                                <label for="pickup-location">Pickup Location</label>
-                                <select id="pickup-location" name="pickup-location">
-                                    <option value="location1">Location 1</option>
-                                    <option value="location2">Location 2</option>
-                                    <option value="location3">Location 3</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="pickup-date">Pickup Date</label>
-                                <input type="date" id="pickup-date" name="pickup-date">
-                            </div>
-                            <div class="form-group">
-                                <label for="return-date">Return Date</label>
-                                <input type="date" id="return-date" name="return-date">
-                            </div>
-                        </div>
-                    </tr>
-                    <tr>
-                        <div class="row">
-                            <div class="form-group">
-                                <label for="car-type">Car Type</label>
-                                <select id="car-type" name="car-type">
-                                    <option value="type1">Type 1</option>
-                                    <option value="type2">Type 2</option>
-                                    <option value="type3">Type 3</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="pickup-time">Pickup Time</label>
-                                <input type="time" id="pickup-time" name="pickup-time">
-                            </div>
-                            <div class="form-group">
-                                <label for="return-time">Return Time</label>
-                                <input type="time" id="return-time" name="return-time">
-                            </div>
-                        </div>
-                    </tr>
-                    <tr>
-                        <button type="submit" class="book-now-btn">Book Now</button>
-                    </tr>
-                </table>
-            </form>
-        </div>
-    </section>
-
+   
 
     <!-- ------------------------Services------------------------------------ -->
     <section class="services" id="Services">
@@ -206,6 +161,8 @@
             <!-- Car cards will be added here dynamically -->
         </div>
     </section>
+
+
 
 
 
